@@ -18,7 +18,7 @@ TagManager:
   - UI
   - Ground
   - PlayerCandy
-  - 
+  - Houses
   - 
   - 
   - 
@@ -45,6 +45,15 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Floor
+    uniqueID: 2871392783
+    locked: 0
+  - name: Houses
+    uniqueID: 3041245915
+    locked: 0
+  - name: Candy
+    uniqueID: 3532623035
     locked: 0
   - name: Player
     uniqueID: 3911752499
