@@ -2,24 +2,16 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    public Transform player;         // The player object to follow
-    public float cameraSpeed = 500f; // The speed at which the camera moves
-
-    private Vector3 offset;          // Offset from the camera to the player
-
-    void Start()
-    {
-        // Calculate the initial offset between the camera and the player
-        offset = transform.position - player.position;
-    }
+    [Header("Camera Speed Settings")]
+    public float scrollSpeed = 2.0f;  // How fast the camera moves
+    public bool startMoving = true;  // If the camera starts moving automatically
 
     void Update()
     {
-        // Move the camera to the right at a constant speed
-        Vector3 newPosition = new Vector3(transform.position.x + cameraSpeed * Time.deltaTime, transform.position.y, transform.position.z);
-
-        // Apply the new camera position
-        transform.position = newPosition;
-
+        if (startMoving)
+        {
+            // Move the camera horizontally over time
+            transform.position += Vector3.right * scrollSpeed * Time.deltaTime;
+        }
     }
 }
