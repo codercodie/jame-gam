@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: 4a7e340058286154090cd2cd40a4994f
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - anim: {instanceID: 0}
+  - giftGO: {instanceID: 0}
+  - gift: {instanceID: 0}
+  - purple: {fileID: 21300000, guid: 516b7b73a20664740aa6316152b1f022, type: 3}
+  - green: {fileID: 21300000, guid: 135eacc2ce1af7046b8068fa7b9a723d, type: 3}
+  - pink: {fileID: 21300000, guid: d30c1fbbf943f1d488f42c8f4b742df2, type: 3}
+  - orange: {fileID: 21300000, guid: eba2d1f28e7d23a4d8e4c57dc4fdd6ce, type: 3}
+  - yellow: {fileID: 21300000, guid: edbd945d168746b43a8afbcaff2dddfe, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
