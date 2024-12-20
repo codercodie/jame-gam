@@ -12,7 +12,7 @@ public class CandyCaneManager : MonoBehaviour
     public float currentEnergy;
     public float maxEnergy = 100f;
     public float minEnergy = 0f;
-    public float energyDrainRate = 0.5f;
+    public float energyDrainRate = 1f;
     public float energyRegenerate = 10f;
 
     [Header("UI Elements")]
@@ -46,7 +46,7 @@ public class CandyCaneManager : MonoBehaviour
         UpdateEnergyBar();
     }
 
-    public void collectCandyCane()
+    public void CollectCandyCane()
     {
         // Regenerate energy when candy cane selected
         currentEnergy += energyRegenerate;
@@ -60,7 +60,7 @@ public class CandyCaneManager : MonoBehaviour
     {
         if (collision.tag.Contains("CandyCane"))
         {
-            collectCandyCane();
+            CollectCandyCane();
             Destroy(collision.gameObject);
             Debug.Log("Collected Candy Cane!");
             Debug.Log("Energy: " + currentEnergy);

@@ -9,6 +9,16 @@ TagManager:
   - china
   - india
   - australia
+  - france
+  - germany
+  - italy
+  - uk
+  - usa
+  - finland
+  - uae
+  - egypt
+  - gift
+  - delivered
   layers:
   - Default
   - TransparentFX
@@ -17,9 +27,9 @@ TagManager:
   - Water
   - UI
   - Ground
-  - PlayerCandy
+  - Player
   - Houses
-  - 
+  - Gift
   - 
   - 
   - 
@@ -45,6 +55,9 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Gift
+    uniqueID: 2850646089
     locked: 0
   - name: Floor
     uniqueID: 2871392783
