@@ -14,6 +14,7 @@ public class CandyCaneManager : MonoBehaviour
     public float minEnergy = 0f;
     public float energyDrainRate = 3f;
     public float energyRegenerate = 5f;
+    public GameManager gameManager;
 
     [Header("UI Elements")]
     public Slider energySlider;
@@ -38,8 +39,11 @@ public class CandyCaneManager : MonoBehaviour
 
         if (currentEnergy < minEnergy)
         {
-            currentEnergy = minEnergy; // prevents negative energy
-            // oh no I'm too tired to continue... end game here 
+            currentEnergy = minEnergy;
+        }
+        if (currentEnergy == minEnergy) 
+        {
+            gameManager.GameOver();
         }
 
         if (currentEnergy > maxEnergy)

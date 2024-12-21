@@ -5859,6 +5859,7 @@ MonoBehaviour:
   minEnergy: 0
   energyDrainRate: 3
   energyRegenerate: 5
+  gameManager: {fileID: 868027967}
   energySlider: {fileID: 946324442}
 --- !u!114 &234028156
 MonoBehaviour:
