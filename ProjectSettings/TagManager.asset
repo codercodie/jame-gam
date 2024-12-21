@@ -19,6 +19,7 @@ TagManager:
   - egypt
   - gift
   - delivered
+  - house
   layers:
   - Default
   - TransparentFX
@@ -61,6 +62,9 @@ TagManager:
     locked: 0
   - name: Floor
     uniqueID: 2871392783
+    locked: 0
+  - name: Bins
+    uniqueID: 1181769561
     locked: 0
   - name: Houses
     uniqueID: 3041245915

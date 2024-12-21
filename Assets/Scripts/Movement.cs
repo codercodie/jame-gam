@@ -12,6 +12,7 @@ public class Movement : MonoBehaviour
     public bool isJumping;
     public bool facingLeft;
     public bool facingRight;
+    private bool isGameOver; // Add this flag
 
     [Header("Ground Detection")]
     public Transform groundCheck;
@@ -29,6 +30,7 @@ public class Movement : MonoBehaviour
         isJumping = false;
         facingLeft = false;
         facingRight = true;
+        isGameOver = false; // Initialize the flag
         anim.SetBool("IsJumping", isJumping);
         anim.SetBool("IsWalking", isMoving);
         anim.SetBool("facingLeft", facingLeft);
@@ -56,6 +58,9 @@ public class Movement : MonoBehaviour
         // Apply horizontal movement velocity
         rb.velocity = new Vector2(input * moveSpeed, rb.velocity.y);
 
+        // Clamp the player's position to prevent moving off the right side
+        ClampPlayerPosition();
+
         // Trigger the jump
         if (Input.GetButtonDown("Jump") && jumpCount < 1)
         {
@@ -67,6 +72,9 @@ public class Movement : MonoBehaviour
         anim.SetBool("IsWalking", isMoving);
         anim.SetBool("facingLeft", facingLeft);
         anim.SetBool("facingRight", facingRight);
+
+        // Check if the player is off the left side of the screen
+        CheckIfOffCamera();
     }
 
     void Jump()
@@ -97,17 +105,34 @@ public class Movement : MonoBehaviour
         }
     }
 
+    private void CheckIfOffCamera()
+    {
+        // Get player's viewport position
+        Vector3 viewportPosition = Camera.main.WorldToViewportPoint(transform.position);
+
+        // Check if player is off the left side of the screen
+        if (viewportPosition.x < 0 && !isGameOver) // Ensure GameOver is called only once
+        {
+            Debug.Log("Player went off the left side of the screen!");
+            isGameOver = true; // Set the flag to prevent further calls
+            gameManager.GameOver();
+        }
+    }
+
+    private void ClampPlayerPosition()
+    {
+        // Get the camera bounds
+        Vector3 screenRightEdge = Camera.main.ViewportToWorldPoint(new Vector3(1, 0, 0));
+
+        // Prevent the player from moving off the right side of the screen
+        if (transform.position.x > screenRightEdge.x)
+        {
+            transform.position = new Vector3(screenRightEdge.x, transform.position.y, transform.position.z);
+        }
+    }
+
     public bool IsMoving()
     {
         return isMoving;
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        // Check if player collides with game over boundary
-        if (collision.gameObject == gameOverBoundary)
-        {
-            gameManager.GameOver();
-        }
     }
 }

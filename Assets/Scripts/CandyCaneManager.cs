@@ -12,8 +12,8 @@ public class CandyCaneManager : MonoBehaviour
     public float currentEnergy;
     public float maxEnergy = 100f;
     public float minEnergy = 0f;
-    public float energyDrainRate = 1f;
-    public float energyRegenerate = 10f;
+    public float energyDrainRate = 3f;
+    public float energyRegenerate = 5f;
 
     [Header("UI Elements")]
     public Slider energySlider;
@@ -21,6 +21,11 @@ public class CandyCaneManager : MonoBehaviour
     void Start()
     {
         currentEnergy = maxEnergy;
+
+        // Set slider min and max values
+        energySlider.minValue = 0;
+        energySlider.maxValue = 1;
+
         Debug.Log("Energy: " + currentEnergy);
     }
 
@@ -48,7 +53,7 @@ public class CandyCaneManager : MonoBehaviour
 
     public void CollectCandyCane()
     {
-        // Regenerate energy when candy cane selected
+        // Regenerate energy when candy cane is collected
         currentEnergy += energyRegenerate;
         if (currentEnergy > maxEnergy)
         {
@@ -64,13 +69,13 @@ public class CandyCaneManager : MonoBehaviour
             Destroy(collision.gameObject);
             Debug.Log("Collected Candy Cane!");
             Debug.Log("Energy: " + currentEnergy);
-
         }
     }
 
     public void UpdateEnergyBar()
     {
+        // Calculate the inverted energy percentage
         float energyPercentage = currentEnergy / maxEnergy;
-        energySlider.value = energyPercentage;
+        energySlider.value = 1 - energyPercentage; // Invert the value
     }
 }
