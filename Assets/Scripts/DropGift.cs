@@ -12,6 +12,8 @@ public class DropGift : MonoBehaviour
     public float moveSpeed = 5f;
     public int drops;
 
+    public SpriteRenderer zone;
+
     private bool playerInTrigger;
     public bool delivered;
     private bool isMoving;
@@ -20,6 +22,7 @@ public class DropGift : MonoBehaviour
     public GiftCounter giftCounter;
 
     public AudioManager audioManager;
+
 
     private void Start()
     {
@@ -92,7 +95,6 @@ public class DropGift : MonoBehaviour
                 break;
         }
 
-        // Set the flag to start moving the gift
         isMoving = true;
     }
 
@@ -101,7 +103,12 @@ public class DropGift : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             Debug.Log("Player exited the trigger area");
-            playerInTrigger = false; // Reset flag when the player leaves the trigger
+            playerInTrigger = false;
         }
+    }
+
+    public void ChangeColor()
+    {
+        zone.color = new Color32(1, 1, 1, 1);
     }
 }

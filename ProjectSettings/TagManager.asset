@@ -67,6 +67,9 @@ TagManager:
   - name: Trees
     uniqueID: 3477355915
     locked: 0
+  - name: Snowpeople
+    uniqueID: 2029507759
+    locked: 0
   - name: Bins
     uniqueID: 1181769561
     locked: 0
@@ -78,4 +81,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 3911752499
+    locked: 0
+  - name: FrontDecs
+    uniqueID: 797518109
     locked: 0

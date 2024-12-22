@@ -21,6 +21,7 @@ public class GiftDelivered : MonoBehaviour
             Debug.Log("Gift Delivered!");
             dropGift.delivered = true;
             audioManager.PlaySFX(6);
+            dropGift.ChangeColor();
         }
     }
 }
