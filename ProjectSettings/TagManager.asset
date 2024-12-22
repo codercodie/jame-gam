@@ -20,6 +20,7 @@ TagManager:
   - gift
   - delivered
   - house
+  - Panel
   layers:
   - Default
   - TransparentFX
