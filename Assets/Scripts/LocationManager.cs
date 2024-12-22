@@ -24,7 +24,7 @@ public class LocationManager : MonoBehaviour
     private void Start()
     {
 
-        location.text = "Australia"; // first location
+        location.text = ""; // starts empty
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

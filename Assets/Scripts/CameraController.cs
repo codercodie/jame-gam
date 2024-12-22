@@ -2,13 +2,31 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    [Header("Camera Speed Settings")]
-    public float scrollSpeed = 2.0f;  // How fast the camera moves
+    public float scrollSpeed;
     public bool startMoving = false;  // If the camera starts moving automatically
     public float stopPositionX = 192f; // The X position where the camera should stop moving
+    public SpeedController speedController;
 
+    public void Start()
+    {
+
+        speedController = GameObject.Find("SpeedController").GetComponent<SpeedController>();
+        scrollSpeed = speedController.speed;
+
+        if (scrollSpeed == 0f)
+        {
+            scrollSpeed = 2f;
+        }
+
+    }
     void Update()
     {
+
+        scrollSpeed = speedController.speed;
+        if (scrollSpeed == 0f)
+        {
+            scrollSpeed = 2f;
+        }
         // Wait for the player to press D or release the right arrow key to start moving
         if ((Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) && !startMoving)
         {
@@ -29,5 +47,10 @@ public class CameraController : MonoBehaviour
                 transform.position = new Vector3(stopPositionX, transform.position.y, transform.position.z);
             }
         }
+    }
+
+    public void SetSpeed(float speed)
+    {
+        scrollSpeed = speed;
     }
 }
