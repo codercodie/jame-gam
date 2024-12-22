@@ -1,4 +1,6 @@
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CameraController : MonoBehaviour
 {
@@ -6,6 +8,7 @@ public class CameraController : MonoBehaviour
     public bool startMoving = false;  // If the camera starts moving automatically
     public float stopPositionX = 192f; // The X position where the camera should stop moving
     public SpeedController speedController;
+    
 
     public void Start()
     {
@@ -18,6 +21,12 @@ public class CameraController : MonoBehaviour
             scrollSpeed = 2f;
         }
 
+        if (SceneManager.GetActiveScene().name == "Tutorial")
+        {
+            scrollSpeed = 0.7f;
+        }
+
+        
     }
     void Update()
     {
@@ -28,7 +37,7 @@ public class CameraController : MonoBehaviour
             scrollSpeed = 2f;
         }
         // Wait for the player to press D or release the right arrow key to start moving
-        if ((Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) && !startMoving)
+        if ((Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) && !startMoving)
         {
             startMoving = true;  // Start moving the camera once the key is pressed
         }

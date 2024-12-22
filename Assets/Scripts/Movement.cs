@@ -1,4 +1,6 @@
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Movement : MonoBehaviour
 {
@@ -23,6 +25,7 @@ public class Movement : MonoBehaviour
     public GameObject gameOverBoundary;
     public Animator anim;
     public AudioManager audioManager;
+    public CameraController cameraController;
 
     void Start()
     {
@@ -114,24 +117,40 @@ public class Movement : MonoBehaviour
         // Get player's viewport position
         Vector3 viewportPosition = Camera.main.WorldToViewportPoint(transform.position);
 
+      
         // Check if player is off the left side of the screen
-        if (viewportPosition.x < 0 && !isGameOver) // Ensure GameOver is called only once
+        if (viewportPosition.x < 0 && !isGameOver && SceneManager.GetActiveScene().name == "Game") // Ensure GameOver is called only once and not in tutorial mode
         {
             Debug.Log("Player went off the left side of the screen!");
             isGameOver = true; // Set the flag to prevent further calls
             gameManager.GameOver();
         }
+        if (viewportPosition.x < 0 && SceneManager.GetActiveScene().name == "Tutorial")
+        {
+            cameraController.startMoving = false;
+        }
+
     }
 
     private void ClampPlayerPosition()
     {
         // Get the camera bounds
         Vector3 screenRightEdge = Camera.main.ViewportToWorldPoint(new Vector3(1, 0, 0));
+        Vector3 screenLeftEdge = Camera.main.ViewportToWorldPoint(new Vector3(-1, 0, 0));
 
         // Prevent the player from moving off the right side of the screen
         if (transform.position.x > screenRightEdge.x)
         {
             transform.position = new Vector3(screenRightEdge.x, transform.position.y, transform.position.z);
+        }
+
+        if (SceneManager.GetActiveScene().name == "Tutorial")
+        {
+            // Prevent the player from moving off the left side of the screen
+            if (transform.position.x > screenLeftEdge.x)
+            {
+                transform.position = new Vector3(screenRightEdge.x, transform.position.y, transform.position.z);
+            }
         }
     }
 
