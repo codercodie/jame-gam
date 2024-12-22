@@ -53,6 +53,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
         gameOverScreen.SetActive(true);
         gameOverGifts.text = giftCounter.giftsDelivered.ToString() + "/" + totalHouses.ToString();
+        audioManager.PlaySFX(4);
     }
 
     public void GameComplete()
@@ -62,6 +63,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
         gameCompleteScreen.SetActive(true);
         gameCompleteGifts.text = giftCounter.giftsDelivered.ToString() + "/" + totalHouses.ToString();
+        audioManager.PlaySFX(0);
     }
 
     public void pauseGame()
