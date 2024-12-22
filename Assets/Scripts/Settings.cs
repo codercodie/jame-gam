@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SliderManager : MonoBehaviour
+public class Settings : MonoBehaviour
 {
     public SpeedController speedController;
 
@@ -23,18 +23,31 @@ public class SliderManager : MonoBehaviour
 
         if (speedSlider != null)
         {
+            if (selectedSpeed != 0f)
+            {
+                speedSlider.value = selectedSpeed;
+            }
+            else
+            {
+                speedSlider.value = 2f;
+            }
+
             speedSlider.onValueChanged.AddListener(OnNumberSliderValueChanged);
             OnNumberSliderValueChanged(speedSlider.value);
         }
 
         if (musicVolumeSlider != null)
         {
+            musicVolume = audioManager.musicVolume;
+            musicVolumeSlider.value = musicVolume;
             musicVolumeSlider.onValueChanged.AddListener(OnMusicVolumeSliderValueChanged);
             OnMusicVolumeSliderValueChanged(musicVolumeSlider.value);
         }
 
         if (sfxVolumeSlider != null)
         {
+            sfxVolume = audioManager.sfxVolume;
+            sfxVolumeSlider.value = sfxVolume;
             sfxVolumeSlider.onValueChanged.AddListener(OnSFXVolumeSliderValueChanged);
             OnSFXVolumeSliderValueChanged(sfxVolumeSlider.value);
         }
@@ -60,6 +73,11 @@ public class SliderManager : MonoBehaviour
         sfxVolume = value;
         Debug.Log("SFX Volume: " + sfxVolume);
         audioManager.SetSFXVolume(sfxVolume);
+    }
+
+    public void SFXrelease()
+    {
+        audioManager.PlaySFX(10);
     }
 
     // Example getter methods for the slider values

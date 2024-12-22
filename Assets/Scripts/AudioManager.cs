@@ -1,24 +1,27 @@
 using UnityEngine;
+using System.Collections.Generic;
+using System.Collections;
 
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance; // Singleton for global access
 
     public AudioSource musicSource; // For background music
+    public List<AudioSource> activeSFXSources = new List<AudioSource>(); // Track active SFX
 
-    [Range(0f, 1f)] public float musicVolume = 1f; // Default music volume
-    [Range(0f, 1f)] public float sfxVolume = 1f; // Default SFX volume
+    [Range(0f, 1f)] public float musicVolume = 0.5f; // Default music volume
+    [Range(0f, 1f)] public float sfxVolume = 0.5f; // Default SFX volume
 
     public AudioClip[] musicClips; // Array for music clips
     public AudioClip[] sfxClips;   // Array for SFX clips
 
     private void Awake()
     {
-        // Singleton pattern to ensure only one AudioManager exists
+        // Singleton pattern
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // Persist across scenes
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -40,6 +43,14 @@ public class AudioManager : MonoBehaviour
     public void SetSFXVolume(float volume)
     {
         sfxVolume = Mathf.Clamp01(volume);
+        // Update all active SFX sources
+        foreach (var sfxSource in activeSFXSources)
+        {
+            if (sfxSource != null)
+            {
+                sfxSource.volume = sfxVolume;
+            }
+        }
     }
 
     // Play a music track by index
@@ -69,12 +80,23 @@ public class AudioManager : MonoBehaviour
             sfxSource.volume = sfxVolume;
             sfxSource.Play();
 
-            // Destroy the AudioSource after the clip has finished playing
-            Destroy(sfxSource, sfxClips[clipIndex].length);
+            // Add to active sources list
+            activeSFXSources.Add(sfxSource);
+
+            // Remove from active sources list after it finishes playing
+            StartCoroutine(RemoveSourceAfterPlay(sfxSource));
         }
         else
         {
             Debug.LogError("Invalid SFX clip index or no clips available.");
         }
+    }
+
+    // Remove the AudioSource from the list after playback
+    private IEnumerator RemoveSourceAfterPlay(AudioSource sfxSource)
+    {
+        yield return new WaitForSeconds(sfxSource.clip.length);
+        activeSFXSources.Remove(sfxSource);
+        Destroy(sfxSource);
     }
 }
