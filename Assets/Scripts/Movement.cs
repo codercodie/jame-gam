@@ -22,6 +22,7 @@ public class Movement : MonoBehaviour
     public GameManager gameManager;
     public GameObject gameOverBoundary;
     public Animator anim;
+    public AudioManager audioManager;
 
     void Start()
     {
@@ -35,6 +36,8 @@ public class Movement : MonoBehaviour
         anim.SetBool("IsWalking", isMoving);
         anim.SetBool("facingLeft", facingLeft);
         anim.SetBool("facingRight", facingRight);
+
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
     }
 
     void Update()
@@ -83,6 +86,7 @@ public class Movement : MonoBehaviour
         rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         jumpCount++;
         isJumping = true;
+        audioManager.PlaySFX(7);
     }
 
     void FixedUpdate()

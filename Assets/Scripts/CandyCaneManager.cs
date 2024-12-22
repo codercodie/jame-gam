@@ -15,12 +15,15 @@ public class CandyCaneManager : MonoBehaviour
     public float energyDrainRate = 3f;
     public float energyRegenerate = 5f;
     public GameManager gameManager;
+    public AudioManager audioManager;   
 
     [Header("UI Elements")]
     public Slider energySlider;
 
     void Start()
     {
+
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
         currentEnergy = maxEnergy;
 
         // Set slider min and max values
@@ -57,6 +60,8 @@ public class CandyCaneManager : MonoBehaviour
 
     public void CollectCandyCane()
     {
+
+        audioManager.PlaySFX(8);
         // Regenerate energy when candy cane is collected
         currentEnergy += energyRegenerate;
         if (currentEnergy > maxEnergy)

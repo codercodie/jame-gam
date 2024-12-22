@@ -6,12 +6,16 @@ using UnityEngine.SceneManagement;
 public class TitleScreen : MonoBehaviour
 {
 
-    public GameObject tutorialPopup;
+    public GameObject tutorialPopup, settingsPanel;
+    public AudioManager audioManager;
 
     // Start is called before the first frame update
     void Start()
     {
         tutorialPopup.SetActive(false);
+        settingsPanel.SetActive(false);
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+        audioManager.PlayMusic(1);
     }
 
     // Update is called once per frame
@@ -27,7 +31,7 @@ public class TitleScreen : MonoBehaviour
 
     public void ShowSettings()
     {
-        // show setings popup here
+        settingsPanel.SetActive(true);
     }
 
     public void ExitGame()
@@ -45,10 +49,16 @@ public class TitleScreen : MonoBehaviour
         SceneManager.LoadScene("Game");
     }
 
-    public void hideTutorialPopup()
+    public void HideTutorialPopup()
     {
         tutorialPopup.SetActive(false);
     }
+
+    public void HideSettings()
+    {
+        settingsPanel.SetActive(false);
+    }
+
 
 
 

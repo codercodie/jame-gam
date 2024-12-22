@@ -13,9 +13,13 @@ public class SliderManager : MonoBehaviour
     private float musicVolume;
     private float sfxVolume;
 
+    public AudioManager audioManager;
+
+
     void Start()
     {
         speedController=GameObject.Find("SpeedController").GetComponent<SpeedController>();
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
 
         if (speedSlider != null)
         {
@@ -48,12 +52,14 @@ public class SliderManager : MonoBehaviour
     {
         musicVolume = value;
         Debug.Log("Music Volume: " + musicVolume);
+        audioManager.SetMusicVolume(musicVolume);
     }
 
     private void OnSFXVolumeSliderValueChanged(float value)
     {
         sfxVolume = value;
         Debug.Log("SFX Volume: " + sfxVolume);
+        audioManager.SetSFXVolume(sfxVolume);
     }
 
     // Example getter methods for the slider values

@@ -14,10 +14,15 @@ public class GameManager : MonoBehaviour
     public GiftCounter giftCounter;
     public int totalHouses;
 
+    public AudioManager audioManager;
+
     private void Start()
     {
         Time.timeScale = 1;
         SetPanelsInactive();
+
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();    
+        audioManager.PlayMusic(6);
 
         totalHouses = 0;
         GameObject[] houses = GameObject.FindGameObjectsWithTag("house");

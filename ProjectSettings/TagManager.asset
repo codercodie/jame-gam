@@ -64,6 +64,9 @@ TagManager:
   - name: Floor
     uniqueID: 2871392783
     locked: 0
+  - name: Trees
+    uniqueID: 3477355915
+    locked: 0
   - name: Bins
     uniqueID: 1181769561
     locked: 0

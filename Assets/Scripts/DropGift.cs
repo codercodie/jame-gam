@@ -19,12 +19,16 @@ public class DropGift : MonoBehaviour
     public GameManager manager;
     public GiftCounter giftCounter;
 
+    public AudioManager audioManager;
+
     private void Start()
     {
         drops = 0;
         playerInTrigger = false;
         delivered = false;
         isMoving = false;
+
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
     }
 
     private void Update()
@@ -62,6 +66,7 @@ public class DropGift : MonoBehaviour
     }
     public void DropTheGift()
     {
+        audioManager.PlaySFX(5);
         Debug.Log("Dropping Gift!");
         giftGO.SetActive(true);
         drops = 1;
