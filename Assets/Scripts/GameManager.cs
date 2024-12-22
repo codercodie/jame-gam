@@ -1,10 +1,12 @@
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
     public GameObject gameOverScreen;
     public GameObject gameCompleteScreen;
+    public GameObject pauseScreen;
     public TextMeshProUGUI gameOverGifts;
     public TextMeshProUGUI gameCompleteGifts;
     public GiftCounter giftCounter;
@@ -14,6 +16,7 @@ public class GameManager : MonoBehaviour
     {
         gameOverScreen.SetActive(false);
         gameCompleteScreen.SetActive(false);
+        pauseScreen.SetActive(false);
         totalHouses = 0;
         GameObject[] houses = GameObject.FindGameObjectsWithTag("house");
         Debug.Log("Houses Found: " + houses.Length);
@@ -41,6 +44,11 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
         gameCompleteScreen.SetActive(true);
         gameCompleteGifts.text = giftCounter.giftsDelivered.ToString() + "/" + totalHouses.ToString();
+    }
+
+    public void pauseGame()
+    {
+        pauseScreen.SetActive(true);
     }
 
 }
