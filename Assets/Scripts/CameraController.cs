@@ -5,14 +5,17 @@ using UnityEngine.SceneManagement;
 public class CameraController : MonoBehaviour
 {
     public float scrollSpeed;
-    public bool startMoving = false;  // If the camera starts moving automatically
-    public float stopPositionX = 192f; // The X position where the camera should stop moving
+    public bool startMoving = false;
+    public float stopPositionX = 192f;
     public SpeedController speedController;
     
 
     public void Start()
     {
-
+        if (SceneManager.GetActiveScene().name == "Tutorial")
+        {
+            stopPositionX = 0f;
+        }
         speedController = GameObject.Find("SpeedController").GetComponent<SpeedController>();
         scrollSpeed = speedController.speed;
 

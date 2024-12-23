@@ -5,13 +5,13 @@ using UnityEngine;
 
 public class TutorialStep : MonoBehaviour
 {
-    public GameObject instructions;
+    public GameObject previousInstructions, nextInstructions;
     public bool stepPause;
 
     // Start is called before the first frame update
     void Start()
     {
-        instructions.SetActive(false);
+        nextInstructions.SetActive(false);
         stepPause = false;
     }
 
@@ -26,7 +26,8 @@ public class TutorialStep : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player")){ 
-            instructions.SetActive(true);
+            previousInstructions.SetActive(false);
+            nextInstructions.SetActive(true);
             Time.timeScale = 0;
             stepPause = true;
         }
@@ -35,7 +36,6 @@ public class TutorialStep : MonoBehaviour
     private void Continue()
     {
         Time.timeScale = 1;
-        instructions.SetActive(false);
         stepPause = false;
         Destroy(gameObject);
     }

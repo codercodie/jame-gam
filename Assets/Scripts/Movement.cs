@@ -134,9 +134,15 @@ public class Movement : MonoBehaviour
 
     private void ClampPlayerPosition()
     {
+        // Define a buffer distance between the camera edge and the player
+        float leftEdgeBuffer = 2f; // Adjust this value as needed for the desired offset
+
         // Get the camera bounds
         Vector3 screenRightEdge = Camera.main.ViewportToWorldPoint(new Vector3(1, 0, 0));
-        Vector3 screenLeftEdge = Camera.main.ViewportToWorldPoint(new Vector3(-1, 0, 0));
+        Vector3 screenLeftEdge = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0));
+
+        // Add the buffer to the left edge
+        float adjustedLeftEdge = screenLeftEdge.x + leftEdgeBuffer;
 
         // Prevent the player from moving off the right side of the screen
         if (transform.position.x > screenRightEdge.x)
@@ -146,13 +152,16 @@ public class Movement : MonoBehaviour
 
         if (SceneManager.GetActiveScene().name == "Tutorial")
         {
-            // Prevent the player from moving off the left side of the screen
-            if (transform.position.x > screenLeftEdge.x)
+            // Prevent the player from moving too close to the left edge of the screen
+            if (transform.position.x < adjustedLeftEdge)
             {
-                transform.position = new Vector3(screenRightEdge.x, transform.position.y, transform.position.z);
+                transform.position = new Vector3(adjustedLeftEdge, transform.position.y, transform.position.z);
+                cameraController.startMoving = false; // Stop the camera from moving
             }
         }
     }
+
+
 
     public bool IsMoving()
     {
