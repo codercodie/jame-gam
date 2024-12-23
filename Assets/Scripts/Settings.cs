@@ -53,26 +53,29 @@ public class Settings : MonoBehaviour
         }
     }
 
-    private void OnNumberSliderValueChanged(float value)
-    {
-        value = Mathf.Clamp(value, speedSlider.minValue, speedSlider.maxValue);
-        selectedSpeed = value;
-        SetCameraSpeed(selectedSpeed);
-        Debug.Log("Selected Speed: " + selectedSpeed);
-    }
-
     private void OnMusicVolumeSliderValueChanged(float value)
     {
-        musicVolume = value;
+        // Invert the value
+        musicVolume = 1.0f - value;
         Debug.Log("Music Volume: " + musicVolume);
         audioManager.SetMusicVolume(musicVolume);
     }
 
     private void OnSFXVolumeSliderValueChanged(float value)
     {
-        sfxVolume = value;
+        // Invert the value
+        sfxVolume = 1.0f - value;
         Debug.Log("SFX Volume: " + sfxVolume);
         audioManager.SetSFXVolume(sfxVolume);
+    }
+
+    private void OnNumberSliderValueChanged(float value)
+    {
+        // Invert the value
+        value = 1.0f - Mathf.Clamp(value, speedSlider.minValue, speedSlider.maxValue);
+        selectedSpeed = value;
+        SetCameraSpeed(selectedSpeed);
+        Debug.Log("Selected Speed: " + selectedSpeed);
     }
 
     public void SFXrelease()

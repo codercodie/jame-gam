@@ -29,7 +29,7 @@ public class SpeedController : MonoBehaviour
 
     public void SetSpeed(float speedy)
     {
-        speed = speedy;
+        speed = -speedy;
         Debug.Log("SpeedController speed set to: " + speed);
     }
 

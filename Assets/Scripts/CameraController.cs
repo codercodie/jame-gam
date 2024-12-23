@@ -1,4 +1,3 @@
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -26,7 +25,7 @@ public class CameraController : MonoBehaviour
 
         if (SceneManager.GetActiveScene().name == "Tutorial")
         {
-            scrollSpeed = 0.7f;
+            scrollSpeed = 0.5f;
         }
 
         
