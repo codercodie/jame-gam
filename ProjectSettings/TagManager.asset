@@ -58,6 +58,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Clouds
+    uniqueID: 897648085
+    locked: 0
+  - name: backgroundTrees
+    uniqueID: 1388863159
+    locked: 0
   - name: Gift
     uniqueID: 2850646089
     locked: 0

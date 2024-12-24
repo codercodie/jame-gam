@@ -1,11 +1,12 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Settings : MonoBehaviour
 {
     public SpeedController speedController;
 
-    public Slider speedSlider; 
+    public Slider speedSlider;
     public Slider musicVolumeSlider;
     public Slider sfxVolumeSlider;
 
@@ -15,27 +16,34 @@ public class Settings : MonoBehaviour
 
     public AudioManager audioManager;
 
-
     void Start()
     {
-        speedController=GameObject.Find("SpeedController").GetComponent<SpeedController>();
-        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
-
-        if (speedSlider != null)
+        if (SceneManager.GetActiveScene().name != "TitleScreen")
         {
-            if (selectedSpeed != 0f)
-            {
-                speedSlider.value = selectedSpeed;
-            }
-            else
-            {
-                speedSlider.value = 2f;
-            }
+            // Set the slider range to 0 to 3
+            speedSlider.minValue = 0f;
+            speedSlider.maxValue = 3f;
 
-            speedSlider.onValueChanged.AddListener(OnNumberSliderValueChanged);
+            // Reference to SpeedController and AudioManager
+            speedController = GameObject.Find("SpeedController").GetComponent<SpeedController>();
+            // Set the initial speed slider value to the current speed from SpeedController
+            speedSlider.value = 3f - speedController.speed; // Inverted mapping
+
+            // Apply the initial value of the slider immediately
             OnNumberSliderValueChanged(speedSlider.value);
+
+            // Listen for changes in the slider
+            if (speedSlider != null)
+            {
+                speedSlider.onValueChanged.AddListener(OnNumberSliderValueChanged);
+            }
         }
 
+
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+
+
+        // Set initial music and SFX volume
         if (musicVolumeSlider != null)
         {
             musicVolume = audioManager.musicVolume;
@@ -53,26 +61,29 @@ public class Settings : MonoBehaviour
         }
     }
 
-    private void OnNumberSliderValueChanged(float value)
-    {
-        value = Mathf.Clamp(value, speedSlider.minValue, speedSlider.maxValue);
-        selectedSpeed = value;
-        SetCameraSpeed(selectedSpeed);
-        Debug.Log("Selected Speed: " + selectedSpeed);
-    }
-
     private void OnMusicVolumeSliderValueChanged(float value)
     {
-        musicVolume = value;
+        musicVolume = 1.0f - value;
         Debug.Log("Music Volume: " + musicVolume);
         audioManager.SetMusicVolume(musicVolume);
     }
 
     private void OnSFXVolumeSliderValueChanged(float value)
     {
-        sfxVolume = value;
+        sfxVolume = 1.0f - value;
         Debug.Log("SFX Volume: " + sfxVolume);
         audioManager.SetSFXVolume(sfxVolume);
+    }
+
+    private void OnNumberSliderValueChanged(float value)
+    {
+        // Invert the slider value: 
+        // 0 -> Speed 3, 1 -> Speed 2, 2 -> Speed 1, 3 -> Speed 0
+        selectedSpeed = 3f - value;
+        Debug.Log("Slider Value Changed: " + value + " -> Selected Speed: " + selectedSpeed);
+
+        // Update the speed in the SpeedController
+        SetCameraSpeed(selectedSpeed);
     }
 
     public void SFXrelease()
@@ -96,7 +107,7 @@ public class Settings : MonoBehaviour
         return sfxVolume;
     }
 
-public void SetCameraSpeed(float speed)
+    public void SetCameraSpeed(float speed)
     {
         speedController.SetSpeed(speed);
     }
@@ -110,5 +121,4 @@ public void SetCameraSpeed(float speed)
     {
         //
     }
-
 }

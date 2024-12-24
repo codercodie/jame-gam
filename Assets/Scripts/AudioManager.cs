@@ -15,6 +15,8 @@ public class AudioManager : MonoBehaviour
     public AudioClip[] musicClips; // Array for music clips
     public AudioClip[] sfxClips;   // Array for SFX clips
 
+    public int currentMusicIndex;
+
     private void Awake()
     {
         // Singleton pattern
@@ -56,17 +58,26 @@ public class AudioManager : MonoBehaviour
     // Play a music track by index
     public void PlayMusic(int clipIndex)
     {
+        if (currentMusicIndex == clipIndex)
+        {
+            // Song is already playing, do nothing
+            return;
+        }
+
         if (musicSource != null && musicClips != null && clipIndex >= 0 && clipIndex < musicClips.Length)
         {
             musicSource.clip = musicClips[clipIndex];
             musicSource.volume = musicVolume;
             musicSource.loop = true;
             musicSource.Play();
+            currentMusicIndex = clipIndex;
         }
         else
         {
             Debug.LogError("Invalid music clip index or no clips available.");
         }
+        
+
     }
 
     // Play a sound effect by index
