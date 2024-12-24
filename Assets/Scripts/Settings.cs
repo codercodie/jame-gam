@@ -18,25 +18,30 @@ public class Settings : MonoBehaviour
 
     void Start()
     {
-        // Set the slider range to 0 to 3
-        speedSlider.minValue = 0f;
-        speedSlider.maxValue = 3f;
+        if (SceneManager.GetActiveScene().name != "TitleScreen")
+        {
+            // Set the slider range to 0 to 3
+            speedSlider.minValue = 0f;
+            speedSlider.maxValue = 3f;
 
-        // Reference to SpeedController and AudioManager
-        speedController = GameObject.Find("SpeedController").GetComponent<SpeedController>();
+            // Reference to SpeedController and AudioManager
+            speedController = GameObject.Find("SpeedController").GetComponent<SpeedController>();
+            // Set the initial speed slider value to the current speed from SpeedController
+            speedSlider.value = 3f - speedController.speed; // Inverted mapping
+
+            // Apply the initial value of the slider immediately
+            OnNumberSliderValueChanged(speedSlider.value);
+
+            // Listen for changes in the slider
+            if (speedSlider != null)
+            {
+                speedSlider.onValueChanged.AddListener(OnNumberSliderValueChanged);
+            }
+        }
+
+
         audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
 
-        // Set the initial speed slider value to the current speed from SpeedController
-        speedSlider.value = 3f - speedController.speed; // Inverted mapping
-
-        // Apply the initial value of the slider immediately
-        OnNumberSliderValueChanged(speedSlider.value);
-
-        // Listen for changes in the slider
-        if (speedSlider != null)
-        {
-            speedSlider.onValueChanged.AddListener(OnNumberSliderValueChanged);
-        }
 
         // Set initial music and SFX volume
         if (musicVolumeSlider != null)

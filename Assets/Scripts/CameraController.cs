@@ -7,7 +7,6 @@ public class CameraController : MonoBehaviour
     public bool startMoving = false;
     public float stopPositionX = 192f;
     public SpeedController speedController;
-    
 
     public void Start()
     {
@@ -15,12 +14,16 @@ public class CameraController : MonoBehaviour
         {
             stopPositionX = 0f;
         }
+
         speedController = GameObject.Find("SpeedController").GetComponent<SpeedController>();
-        
+
+        // You no longer need to manually set the speed here
+        // The SpeedController will handle that based on the scene
     }
+
     void Update()
     {
-
+        // Update scrollSpeed based on the current speed from SpeedController
         scrollSpeed = speedController.speed;
 
         // Wait for the player to press D or release the right arrow key to start moving
