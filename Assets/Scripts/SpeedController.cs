@@ -1,37 +1,39 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SpeedController : MonoBehaviour
 {
     public float speed;
     public static SpeedController Instance;
 
-    // Start is called before the first frame update
     void Start()
     {
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // Persist across scenes
+            DontDestroyOnLoad(gameObject); // Ensure it persists across scenes
         }
         else
         {
             Destroy(gameObject);
         }
+
+        // Set initial speed based on the scene
+        if (SceneManager.GetActiveScene().name == "Tutorial")
+        {
+            speed = 2f;  // Set initial speed for the tutorial scene
+        }
+        else
+        {
+            speed = 1f;  // Set initial speed for the main game
+        }
+
+        Debug.Log("Initial Speed Set: " + speed);  // Log to confirm
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SetSpeed(float newSpeed)
     {
-        
+        speed = newSpeed;
+        Debug.Log("Speed updated to: " + speed);  // Log to confirm speed changes
     }
-
-    public void SetSpeed(float speedy)
-    {
-        speed = -speedy;
-        Debug.Log("SpeedController speed set to: " + speed);
-    }
-
-
 }

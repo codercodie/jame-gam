@@ -54,18 +54,21 @@ public class IntroductionScene : MonoBehaviour
     public void LaunchScene2()
     {
         Scene2.SetActive(true);
+        Scene1.SetActive(false);
         currentIntroScene = 2;
     }
 
     public void LaunchScene3()
     {
         Scene3.SetActive(true);
+        Scene2.SetActive(false);
         currentIntroScene = 3;
     }
 
     public void LaunchScene4()
     {
         Scene4.SetActive(true);
+        Scene3.SetActive(false);
         currentIntroScene = 4;
     }
 
@@ -80,6 +83,7 @@ public class IntroductionScene : MonoBehaviour
 
     public void ShowTutorialPopup()
     {
+        Scene4.SetActive(false);
         tutorialPopup.SetActive(true);
     }
 

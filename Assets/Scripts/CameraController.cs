@@ -16,28 +16,13 @@ public class CameraController : MonoBehaviour
             stopPositionX = 0f;
         }
         speedController = GameObject.Find("SpeedController").GetComponent<SpeedController>();
-        scrollSpeed = speedController.speed;
-
-        if (scrollSpeed == 0f)
-        {
-            scrollSpeed = 2f;
-        }
-
-        if (SceneManager.GetActiveScene().name == "Tutorial")
-        {
-            scrollSpeed = 0.5f;
-        }
-
         
     }
     void Update()
     {
 
         scrollSpeed = speedController.speed;
-        if (scrollSpeed == 0f)
-        {
-            scrollSpeed = 2f;
-        }
+
         // Wait for the player to press D or release the right arrow key to start moving
         if ((Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) && !startMoving)
         {
