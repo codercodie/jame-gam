@@ -16,17 +16,15 @@ public class CameraController : MonoBehaviour
         }
 
         speedController = GameObject.Find("SpeedController").GetComponent<SpeedController>();
-
-        // You no longer need to manually set the speed here
-        // The SpeedController will handle that based on the scene
+        // SpeedController handles the speed based on the scene
     }
 
     void Update()
     {
-        // Update scrollSpeed based on the current speed from SpeedController
+        // Keep the Speed up to date with what the player changes it to
         scrollSpeed = speedController.speed;
 
-        // Wait for the player to press D or release the right arrow key to start moving
+        // Wait for the player to move before the camera starts moving
         if ((Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) && !startMoving)
         {
             startMoving = true;  // Start moving the camera once the key is pressed

@@ -13,7 +13,7 @@ public class Movement : MonoBehaviour
     public bool isJumping;
     public bool facingLeft;
     public bool facingRight;
-    private bool isGameOver; // Add this flag
+    private bool isGameOver;
 
     [Header("Ground Detection")]
     public Transform groundCheck;
@@ -33,7 +33,7 @@ public class Movement : MonoBehaviour
         isJumping = false;
         facingLeft = false;
         facingRight = true;
-        isGameOver = false; // Initialize the flag
+        isGameOver = false;
         anim.SetBool("IsJumping", isJumping);
         anim.SetBool("IsWalking", isMoving);
         anim.SetBool("facingLeft", facingLeft);
@@ -93,7 +93,7 @@ public class Movement : MonoBehaviour
 
     void FixedUpdate()
     {
-        // Check if player is grounded, considering both groundLayer and houseLayer
+        // Check if player is grounded, considering both groundLayer and houseLayer (houses and bins)
         bool isOnGround = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
         bool isOnHouse = Physics2D.OverlapCircle(groundCheck.position, 0.1f, houseLayer);
 
@@ -134,7 +134,7 @@ public class Movement : MonoBehaviour
     private void ClampPlayerPosition()
     {
         // Define a buffer distance between the camera edge and the player
-        float leftEdgeBuffer = 2f; // Adjust this value as needed for the desired offset
+        float leftEdgeBuffer = 3f;
 
         // Get the camera bounds
         Vector3 screenRightEdge = Camera.main.ViewportToWorldPoint(new Vector3(1, 0, 0));
@@ -151,17 +151,18 @@ public class Movement : MonoBehaviour
 
         if (SceneManager.GetActiveScene().name == "Tutorial")
         {
-            // Prevent the player from moving too close to the left edge of the screen
+            // Prevent the player from moving too close to the left edge of the screen in Tutorial mode
             if (transform.position.x < adjustedLeftEdge)
             {
                 transform.position = new Vector3(adjustedLeftEdge, transform.position.y, transform.position.z);
-                cameraController.startMoving = false; // Stop the camera from moving
+                cameraController.startMoving = false;
             }
         }
     }
 
 
 
+    // Check if the camera i moving or not
     public bool IsMoving()
     {
         return isMoving;

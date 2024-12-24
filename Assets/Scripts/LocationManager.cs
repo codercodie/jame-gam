@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class LocationManager : MonoBehaviour
@@ -23,8 +24,14 @@ public class LocationManager : MonoBehaviour
 
     private void Start()
     {
-
-        location.text = "Training Grounds"; // starts empty
+        if (SceneManager.GetActiveScene().name == "Tutorial")
+        {
+            location.text = "Training Grounds";
+        }
+        else
+        {
+            location.text = ""; // starts empty
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

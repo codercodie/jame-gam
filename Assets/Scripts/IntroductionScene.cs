@@ -19,7 +19,7 @@ public class IntroductionScene : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape)) // skip intro
+        if (Input.GetKeyDown(KeyCode.Escape)) // Skip intro
         {
             ShowTutorialPopup();
         }
@@ -43,7 +43,8 @@ public class IntroductionScene : MonoBehaviour
             }
         }
     }
-
+    
+    // Show intro scene - village
     public void LaunchIntro()
     {
         Scene1.SetActive(true);
@@ -51,6 +52,7 @@ public class IntroductionScene : MonoBehaviour
 
     }
 
+    // Show intro scene - vet
     public void LaunchScene2()
     {
         Scene2.SetActive(true);
@@ -58,6 +60,7 @@ public class IntroductionScene : MonoBehaviour
         currentIntroScene = 2;
     }
 
+    // Show intro scene - Santa
     public void LaunchScene3()
     {
         Scene3.SetActive(true);
@@ -65,6 +68,7 @@ public class IntroductionScene : MonoBehaviour
         currentIntroScene = 3;
     }
 
+    // Show intro scene - cat
     public void LaunchScene4()
     {
         Scene4.SetActive(true);
@@ -72,6 +76,7 @@ public class IntroductionScene : MonoBehaviour
         currentIntroScene = 4;
     }
 
+    // Set all inactive
     public void SetAllInactive()
     {
         GameObject[] panels = GameObject.FindGameObjectsWithTag("Panel");
@@ -81,6 +86,7 @@ public class IntroductionScene : MonoBehaviour
         }
     }
 
+    // Ask if they want to play a Tutorial
     public void ShowTutorialPopup()
     {
         Scene4.SetActive(false);
